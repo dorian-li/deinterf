@@ -5,31 +5,35 @@ import pandas as pd
 
 from deinterf import TollesLawsonCompensator
 
-test_file = Path("C:/Users/Dorian/Desktop/flux_and_op.csv")
+test_file = Path(__file__).parent / Path("test_data.csv")
 flt_d = pd.read_csv(test_file)
 
-compor = TollesLawsonCompensator()
-compor.fit(
+compensator = TollesLawsonCompensator()
+compensator.fit(
     flt_d["flux_b_x"],
     flt_d["flux_b_y"],
     flt_d["flux_b_z"],
     flt_d["mag_3_uc"],
 )
-# compor.sampling_rate(10)
-# compor.bpf(False)
-# compor.using_permanent()
-# compor.using_induced()
-# compor.using_eddy()
+# compensator.adjust_sampling_rate(10)
+# compensator.enable_bpf(True)
+# compensator.use_permanent(True)
+# compensator.use_induced(True)
+# compensator.use_eddy(True)
 
-comped, interf = compor.apply(
+comped, interf = compensator.apply(
     flt_d["flux_b_x"],
     flt_d["flux_b_y"],
     flt_d["flux_b_z"],
     flt_d["mag_3_uc"],
 )
-compor.evaluate_src()
-compor.evaluate(flt_d["mag_3_uc"], comped)
+compensator.evaluate_src()
+compensator.evaluate(flt_d["mag_3_uc"], comped)
 
-plt.plot(comped)
-plt.plot(flt_d["mag_3_uc"])
+plt.plot(comped, label="comped")
+plt.plot(flt_d["mag_3_uc"], label="uncomped")
+plt.xlabel("sample[point]")
+plt.ylabel("magnetic[nT]")
+plt.legend()
+plt.grid()
 plt.show()
