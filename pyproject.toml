@@ -1,7 +1,7 @@
 # Project Metadata
 [project]
 name = "deinterf"
-version = "0.0.1"
+version = "0.1.0"
 description = "Aeromagnetic Data Compensation for Magnetic Interference"
 readme = "README.md"
 
