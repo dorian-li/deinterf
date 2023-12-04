@@ -99,7 +99,7 @@ class TollesLawsonCompensator:
             scaling_factor * cos_x * cos_x,
             scaling_factor * cos_x * cos_y,
             scaling_factor * cos_x * cos_z,
-            scaling_factor * cos_y * cos_y,
+            scaling_factor * cos_y * cos_y,  # removed in 16-item version
             scaling_factor * cos_y * cos_z,
             scaling_factor * cos_z * cos_z,
         ]
@@ -109,7 +109,7 @@ class TollesLawsonCompensator:
             scaling_factor * cos_x * cos_y_dot,
             scaling_factor * cos_x * cos_z_dot,
             scaling_factor * cos_y * cos_x_dot,
-            scaling_factor * cos_y * cos_y_dot,
+            scaling_factor * cos_y * cos_y_dot,  # removed in 16-item version
             scaling_factor * cos_y * cos_z_dot,
             scaling_factor * cos_z * cos_x_dot,
             scaling_factor * cos_z * cos_y_dot,
@@ -117,16 +117,8 @@ class TollesLawsonCompensator:
         ]
 
         if self._coefficients_num == 16:
-            induced_items = [
-                item
-                for item in induced_items
-                if item is not scaling_factor * cos_y * cos_y
-            ]
-            eddy_items = [
-                item
-                for item in eddy_items
-                if item is not scaling_factor * cos_y * cos_y_dot
-            ]
+            del induced_items[len(induced_items) // 2]
+            del eddy_items[len(eddy_items) // 2]
 
         return permanent_items, induced_items, eddy_items
 
