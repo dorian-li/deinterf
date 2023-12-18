@@ -4,24 +4,16 @@ The project aims to compensate for magnetic interference related to the magnetic
 
 ## Getting started
 
-deinterf can be installed using pip:
+`deinterf` can be installed using pip:
 
 ```shell
-pip install deinterf
+pip install git+https://github.com/dorian-li/deinterf.git
 ```
-
+When updating, the following command can be used：
+```
+pip install --ignore-installed git+https://github.com/dorian-li/deinterf.git
+```
 A usage case can be found in the `example` folder
-
-## Manual installation
-
-```shell
-git clone https://github.com/dorian-li/deinterf.git
-cd deinterf
-pip install -e .
-# If editable mode is not required:
-# pip install .
-# This means that modifications made within the cloned code cannot be directly fed back to the running code and need to be reinstalled.
-```
 
 ## Licensing
 
