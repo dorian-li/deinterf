@@ -9,10 +9,8 @@ test_file = Path(__file__).parent / Path("test_data.csv")
 flt_d = pd.read_csv(test_file)
 
 compensator = TollesLawsonCompensator()
-compensator.fit(
-    flt_d["flux_b_x"],
-    flt_d["flux_b_y"],
-    flt_d["flux_b_z"],
+comped = compensator.fit_transform(
+    flt_d[["flux_b_x", "flux_b_y", "flux_b_z"]],
     flt_d["mag_3_uc"],
 )
 # compensator.adjust_sampling_rate(10)
@@ -21,12 +19,6 @@ compensator.fit(
 # compensator.use_induced(True)
 # compensator.use_eddy(True)
 
-comped, interf = compensator.apply(
-    flt_d["flux_b_x"],
-    flt_d["flux_b_y"],
-    flt_d["flux_b_z"],
-    flt_d["mag_3_uc"],
-)
 compensator.evaluate_src()
 compensator.evaluate(flt_d["mag_3_uc"], comped)
 
