@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.utils._param_validation import Interval, validate_params
 from sklearn.utils.validation import check_consistent_length, column_or_1d
 
-from ..utils.filter import fom_bpfilter
+from deinterf.utils.filter import fom_bpfilter
 
 
 @validate_params(
