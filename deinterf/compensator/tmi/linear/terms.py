@@ -1,4 +1,4 @@
-from deinterf.compensator.tmi.linear.kernel import (
+from deinterf.compensator.tmi.linear._term import (
     Eddy,
     Eddy8,
     Eddy9,

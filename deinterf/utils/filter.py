@@ -2,7 +2,7 @@ from numbers import Integral
 
 from scipy.signal import butter, filtfilt
 from sklearn.utils._param_validation import Interval, validate_params
-from sklearn.utils.validation import FLOAT_DTYPES, check_array
+from sklearn.utils.validation import check_array
 
 
 @validate_params(
@@ -30,7 +30,7 @@ def fom_bpfilter(X, bandpass_range=(0.1, 0.6), sampling_rate=10):
     filtered : array-like of shape (n_samples, n_features)
         滤波后的信号。
     """
-    X = check_array(X, copy=True, ensure_2d=False, dtype=FLOAT_DTYPES)
+    X = check_array(X, copy=True, ensure_2d=False)
     b, a = butter(
         4,
         Wn=list(bandpass_range),
