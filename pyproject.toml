@@ -8,12 +8,12 @@ readme = "README.md"
 # Requirements
 requires-python = ">=3.9"
 dependencies = [
-    "numpy>=1.24.4", 
-    "scipy>=1.11.1", 
-    "pandas>=2.0.3", 
-    "loguru>=0.7.0", 
-    "scikit-learn>=1.3.0",
-    "typing-extensions"
+    "numpy>=1.26.4", 
+    "scipy>=1.12.0", 
+    "scikit-learn>=1.4.0",
+    "typing-extensions>=4.10.0",
+    "sgl2020>=0.1.1",
+    "matplotlib>=3.8.3"
 ]
 
 # Author Info

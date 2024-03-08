@@ -1,5 +1,6 @@
 numpy
 scipy
-pandas
-loguru
 scikit-learn
+typing-extensions
+sgl2020
+matplotlib
