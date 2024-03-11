@@ -35,7 +35,8 @@ class DataNDArray(np.ndarray, IndexedData):
         inputs = tuple(np.asarray(inp) if isinstance(inp, typ) else inp for inp in inputs)
         if out is not None:
             out = tuple(np.asarray(o) if isinstance(o, typ) else o for o in out)
-        ret = super().__array_ufunc__(ufunc, method, *inputs, out=out, **kwargs)
+
+        ret = getattr(ufunc, method)(*inputs, out=out, **kwargs)
 
         if ret is NotImplemented:
             return NotImplemented
