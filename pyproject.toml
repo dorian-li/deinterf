@@ -1,7 +1,7 @@
 # Project Metadata
 [project]
 name = "deinterf"
-version = "0.1.0"
+version = "1.0.0"
 description = "Aeromagnetic Data Compensation for Magnetic Interference"
 readme = "README.md"
 
@@ -13,7 +13,8 @@ dependencies = [
     "scikit-learn>=1.4.0",
     "typing-extensions>=4.10.0",
     "sgl2020>=0.1.1",
-    "matplotlib>=3.8.3"
+    "matplotlib>=3.8.3",
+    "ppigrf>=1.0.2"
 ]
 
 # Author Info
