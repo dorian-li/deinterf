@@ -16,7 +16,7 @@ Classical T-L compensation:
 
 ```python
 
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from sgl2020 import Sgl2020
 
 from deinterf.compensator.tmi.linear import Terms, TollesLawson
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     plt.show()
 ```
 
-Using "direction cosines calculated by the inertial measurement unit (IMU) system instead of the magnetic vector" as an example, this section demonstrates how to extend or modify the classic T-L model:
+Using "direction cosines calculated by the inertial navigation system (INS) instead of the magnetic vector" as an example, this section demonstrates how to extend or modify the classic T-L model:
 
 ```python
 from datetime import datetime, timedelta
