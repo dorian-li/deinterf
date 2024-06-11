@@ -30,6 +30,9 @@ if __name__ == "__main__":
 
     # 创建补偿器
     compensator = TollesLawson(terms=Terms.Terms_16)
+    # 默认使用交叉验证的岭回归，可替换为其他回归器
+    # from sklearn.linear_model import BayesianRidge
+    # compensator = TollesLawson(terms=Terms.Terms_16, estimator=BayesianRidge())
     compensator.fit(fom_data, tmi_with_interf)
 
     # 补偿给定信号

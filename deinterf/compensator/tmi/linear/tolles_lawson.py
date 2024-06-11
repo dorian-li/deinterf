@@ -7,7 +7,7 @@ from scipy.signal import detrend
 from sklearn.base import BaseEstimator, OneToOneFeatureMixin, _fit_context
 from sklearn.linear_model import RidgeCV
 from sklearn.preprocessing import StandardScaler
-from sklearn.utils._param_validation import Interval, StrOptions
+from sklearn.utils._param_validation import Interval, StrOptions, HasMethods
 from sklearn.utils.validation import check_consistent_length, check_is_fitted
 from typing_extensions import Literal, Self
 
@@ -25,21 +25,28 @@ class TollesLawson(OneToOneFeatureMixin, BaseEstimator):
         "terms": [ComposableTerm, Composition],
         "norm": ["boolean"],
         "sampling_rate": [Interval(Integral, 1, None, closed="left")],
+        "estimator": [HasMethods(["fit", "predict"]), None],
         "copy": ["boolean"],
     }
 
     def __init__(
-        self,
-        filter: Literal["bandpass"] | None = "bandpass",
-        terms=Terms.Terms_16,
-        norm=True,
-        sampling_rate=10,
-        copy=True,
+            self,
+            filter: Literal["bandpass"] | None = "bandpass",
+            terms=Terms.Terms_16,
+            norm=True,
+            sampling_rate=10,
+            estimator=None,
+            copy=True,
     ) -> None:
         self.filter = filter
         self.terms = terms
         self.norm = norm
         self.sampling_rate = sampling_rate
+        self.estimator = RidgeCV(
+            fit_intercept=False,
+            alphas=np.logspace(-6, 6, 13),
+            cv=10,
+        ) if estimator is None else estimator
         self.copy = copy
 
     def _reset(self) -> None:
@@ -76,11 +83,7 @@ class TollesLawson(OneToOneFeatureMixin, BaseEstimator):
             else measurement
         )
 
-        self.model_ = RidgeCV(
-            fit_intercept=False,
-            alphas=np.logspace(-6, 6, 13),
-            cv=10,
-        ).fit(tl_features, interf_measured)
+        self.model_ = self.estimator.fit(tl_features, interf_measured)
 
         return self
 
