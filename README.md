@@ -118,7 +118,7 @@ class IGRF(DataNDArray):
         date = datetime(year, 1, 1) + timedelta(days=doy - 1)
 
         geo_e, geo_n, geo_u = ppigrf.igrf(lon, lat, alt / 1000, date)
-        geo = np.row_stack((geo_e, geo_n, geo_u)).T
+        geo = np.vstack((geo_e, geo_n, geo_u)).T
 
         return cls(*geo.T)
 

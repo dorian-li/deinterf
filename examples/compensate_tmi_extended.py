@@ -1,3 +1,4 @@
+import warnings
 from datetime import datetime, timedelta
 from typing import NamedTuple
 
@@ -14,10 +15,15 @@ from deinterf.metrics.fom import improve_rate
 from deinterf.utils.data_ioc import DataIoC, DataNDArray, UniqueData
 from deinterf.utils.transform import magvec2dircosine
 
+# 忽略ppigrf中关于pandas的提醒
+warnings.filterwarnings("ignore", category=FutureWarning,
+                        message=".*'unit' keyword in TimedeltaIndex construction is deprecated.*")
+
 
 class LocationWGS84(DataNDArray, UniqueData):
     """显式指定为唯一数据
     """
+
     def __new__(cls, lon: ArrayLike, lat: ArrayLike, alt: ArrayLike):
         return super().__new__(cls, lon, lat, alt)
 
@@ -39,7 +45,7 @@ class IGRF(DataNDArray):
         date = datetime(year, 1, 1) + timedelta(days=doy - 1)
 
         geo_e, geo_n, geo_u = ppigrf.igrf(lon, lat, alt / 1000, date)
-        geo = np.row_stack((geo_e, geo_n, geo_u)).T
+        geo = np.vstack((geo_e, geo_n, geo_u)).T
 
         return cls(*geo.T)
 

@@ -14,7 +14,7 @@ dependencies = [
     "typing-extensions>=4.10.0",
     "sgl2020>=0.1.1",
     "matplotlib>=3.8.3",
-    "ppigrf>=1.0.2"
+    "ppigrf==1.0.2"
 ]
 
 # Author Info
