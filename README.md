@@ -1,4 +1,13 @@
-# deinterf
+<!-- markdownlint-disable -->
+
+<div align="center">
+
+<img alt="LOGO" src="./docs/assets/logo.svg" width="80%" />
+
+<!-- markdownlint-restore -->
+</div>
+
+## Intro
 
 Based on the Tolles-Lawson (T-L) aeromagnetic compensation model, this tool compensates for the aircraft's own magnetic interference in aeromagnetic survey data. Future enhancements may include magnetic vector compensation, nonlinear methods, neural network approaches, etc. This tool is designed using the inversion of control concept (thanks to @yanang007) and supports the extension of additional magnetic interference components.
 
