@@ -15,7 +15,7 @@ from deinterf.metrics.fom import improve_rate
 from deinterf.utils.data_ioc import DataIoC, DataNDArray, UniqueData
 from deinterf.utils.transform import magvec2dircosine
 
-# 忽略ppigrf中关于pandas的提醒
+# Ignore pandas-related warnings from ppigrf
 warnings.filterwarnings("ignore", category=FutureWarning,
                         message=".*'unit' keyword in TimedeltaIndex construction is deprecated.*")
 
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     compensator = TollesLawson(terms=Terms.Terms_16[1])
     tmi_clean_classic = compensator.fit_transform(fom_data, tmi_with_interf)
 
-    # INS extended compensation
+    # INS based compensation
     fom_data = DataIoC().with_data(
         Date(year=year, doy=doy),
         LocationWGS84(lon=flt_d["lon"], lat=flt_d["lat"], alt=flt_d["utm_z"]),

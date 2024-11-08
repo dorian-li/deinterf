@@ -22,36 +22,36 @@ if __name__ == "__main__":
     )
     flt_d = surv_d["1002.02"]
 
-    # 数据准备
+    # Data preparation
     tmi_with_interf = Tmi(tmi=flt_d["mag_3_uc"])
     fom_data = DataIoC().add(
         MagVector(bx=flt_d["flux_b_x"], by=flt_d["flux_b_y"], bz=flt_d["flux_b_z"])
     )
 
-    # 创建补偿器
+    # Create compensator
     compensator = TollesLawson(terms=Terms.Terms_16)
-    # 默认使用交叉验证的岭回归，可替换为其他回归器
+    # Default uses cross-validated ridge regression, can be replaced with other regressors
     # from sklearn.linear_model import BayesianRidge
     # compensator = TollesLawson(terms=Terms.Terms_16, estimator=BayesianRidge())
     compensator.fit(fom_data, tmi_with_interf)
 
-    # 补偿给定信号
+    # Compensate given signal
     tmi_clean = compensator.transform(fom_data, tmi_with_interf)
 
-    # 或者一步到位，拟合与补偿自身
+    # Or fit and transform in one step
     tmi_clean = compensator.fit_transform(fom_data, tmi_with_interf)
 
-    # 仅预测磁干扰
+    # Only predict magnetic interference
     interf = compensator.predict(fom_data)
 
-    # 评估磁补偿性能
+    # Evaluate magnetic compensation performance
     comped_noise_level = noise_level(tmi_clean)
     print(f"{comped_noise_level=}")
 
     ir = improve_rate(tmi_with_interf, tmi_clean)
     print(f"{ir=}")
 
-    # 简要绘图
+    # Simple plot
     plt.plot(tmi_with_interf, label="tmi_with_interf")
     plt.plot(tmi_clean, label="tmi_clean")
     plt.legend()
